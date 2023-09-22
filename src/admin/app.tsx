@@ -6,7 +6,7 @@ export default {
       // 'cs',
       // 'de',
       // 'dk',
-      // 'es',
+      'es',
       // 'he',
       // 'id',
       // 'it',
@@ -30,6 +30,6 @@ export default {
     ],
   },
   bootstrap(app) {
-    console.log(app);
+    console.log(app)
   },
-};
+}
