@@ -4,19 +4,23 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "dev": "strapi develop",
+    "dev": "strapi develop --watch-admin",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-graphql": "^4.13.7",
-    "@strapi/plugin-i18n": "4.13.7",
-    "@strapi/plugin-users-permissions": "4.13.7",
-    "@strapi/provider-email-nodemailer": "^4.13.7",
-    "@strapi/provider-upload-aws-s3": "^4.13.7",
-    "@strapi/strapi": "4.13.7",
-    "pg": "8.11.3"
+    "@strapi/plugin-graphql": "^4.15.5",
+    "@strapi/plugin-i18n": "4.15.5",
+    "@strapi/plugin-users-permissions": "4.15.5",
+    "@strapi/provider-email-nodemailer": "^4.15.5",
+    "@strapi/provider-upload-aws-s3": "^4.15.5",
+    "@strapi/strapi": "4.15.5",
+    "pg": "8.11.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.11"
   },
   "author": {
     "name": "A Strapi developer"
@@ -28,5 +32,8 @@
     "node": ">=16.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.3"
+  }
 }
