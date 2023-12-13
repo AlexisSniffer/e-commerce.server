@@ -1,48 +1,41 @@
-import { prefixPluginTranslations } from '@strapi/helper-plugin';
+import { prefixPluginTranslations } from '@strapi/helper-plugin'
 
-import pluginPkg from '../../package.json';
-import pluginId from './pluginId';
-import Initializer from './components/Initializer';
-import PluginIcon from './components/PluginIcon';
+import pluginPkg from '../../package.json'
+import PluginIcon from './components/PluginIcon'
+import pluginId from './pluginId'
+import getTrad from './utils/getTrad'
 
-const name = pluginPkg.strapi.name;
+const name = pluginPkg.strapi.name
 
 export default {
   register(app: any) {
-    app.addMenuLink({
-      to: `/plugins/${pluginId}`,
-      icon: PluginIcon,
+    app.customFields.register({
+      name: 'variants',
+      pluginId: 'product-variants',
+      type: 'string',
       intlLabel: {
-        id: `${pluginId}.plugin.name`,
-        defaultMessage: name,
+        id: getTrad('product-variants.label'),
+        defaultMessage: 'Variants',
       },
-      Component: async () => {
-        const component = await import('./pages/App');
-
-        return component;
+      intlDescription: {
+        id: getTrad('product-variants.description'),
+        defaultMessage: 'Variants (Cartesian product)',
       },
-      permissions: [
-        // Uncomment to set the permissions of the plugin here
-        // {
-        //   action: '', // the action name should be plugin::plugin-name.actionType
-        //   subject: null,
-        // },
-      ],
-    });
-    const plugin = {
-      id: pluginId,
-      initializer: Initializer,
-      isReady: false,
-      name,
-    };
-
-    app.registerPlugin(plugin);
+      components: {
+        Input: async () =>
+          import(
+            /* webpackChunkName: "input-component" */ './components/Variants/Input'
+          ),
+      },
+      icon: PluginIcon,
+      options: {},
+    })
   },
 
   bootstrap(app: any) {},
 
   async registerTrads(app: any) {
-    const { locales } = app;
+    const { locales } = app
 
     const importedTrads = await Promise.all(
       (locales as any[]).map((locale) => {
@@ -51,17 +44,17 @@ export default {
             return {
               data: prefixPluginTranslations(data, pluginId),
               locale,
-            };
+            }
           })
           .catch(() => {
             return {
               data: {},
               locale,
-            };
-          });
+            }
+          })
       })
-    );
+    )
 
-    return Promise.resolve(importedTrads);
+    return Promise.resolve(importedTrads)
   },
-};
+}

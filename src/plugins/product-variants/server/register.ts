@@ -1,5 +1,13 @@
-import { Strapi } from '@strapi/strapi';
+import { Strapi } from '@strapi/strapi'
 
 export default ({ strapi }: { strapi: Strapi }) => {
-  // register phase
-};
+  strapi.customFields.register({
+    name: 'variants',
+    plugin: 'product-variants',
+    type: 'string',
+    inputSize: {
+      default: 4,
+      isResizable: true,
+    },
+  })
+}

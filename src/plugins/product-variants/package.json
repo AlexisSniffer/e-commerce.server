@@ -1,10 +1,10 @@
 {
   "name": "product-variants",
   "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "description": "variations (Cartesian products).",
   "strapi": {
-    "name": "product-variants",
-    "description": "Description of product-variants plugin",
+    "name": "Variants",
+    "description": "Variations (Cartesian products)",
     "kind": "plugin"
   },
   "dependencies": {
