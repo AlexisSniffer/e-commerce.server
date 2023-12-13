@@ -41,7 +41,7 @@ module.exports = ({ env }) => ({
   },
 
   // prettier-ignore
-  'products-variants': {
+  'product-variants': {
     enabled: true,
     resolve: './src/plugins/product-variants'
   },

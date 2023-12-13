@@ -1,4 +1,17 @@
 import React from 'react'
+import {
+  BaseButton,
+  Box,
+  Field,
+  FieldError,
+  FieldHint,
+  FieldInput,
+  FieldLabel,
+  Flex,
+  FocusTrap,
+  Popover,
+  Typography,
+} from '@strapi/design-system'
 import { useIntl } from 'react-intl'
 
 const Input = React.forwardRef((props: any, ref: any) => {
@@ -15,7 +28,8 @@ const Input = React.forwardRef((props: any, ref: any) => {
 
   return (
     <label>
-      {formatMessage(intlLabel)}
+      Prueba {formatMessage(intlLabel)}
+      <pre>{JSON.stringify(props, null, 2)}</pre>
       <input
         ref={ref}
         name={name}
