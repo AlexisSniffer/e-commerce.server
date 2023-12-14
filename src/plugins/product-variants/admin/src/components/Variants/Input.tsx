@@ -1,44 +1,32 @@
-import React from 'react'
 import {
-  BaseButton,
   Box,
-  Field,
-  FieldError,
-  FieldHint,
-  FieldInput,
-  FieldLabel,
-  Flex,
-  FocusTrap,
-  Popover,
+  Button,
+  Grid,
+  GridItem,
+  Icon,
+  TextButton,
+  TextInput,
   Typography,
 } from '@strapi/design-system'
+import { ArrowRight } from '@strapi/icons'
+import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
 
 const Input = React.forwardRef((props: any, ref: any) => {
+  const [currentAction, setCurrentAction] = useState('None Selected')
   const { attribute, disabled, intlLabel, name, onChange, required, value } =
     props // these are just some of the props passed by the content-manager
 
   const { formatMessage } = useIntl()
 
-  const handleChange = (e: any) => {
-    onChange({
-      target: { name, type: attribute.type, value: e.currentTarget.value },
-    })
-  }
-
   return (
-    <label>
-      Prueba {formatMessage(intlLabel)}
-      <pre>{JSON.stringify(props, null, 2)}</pre>
-      <input
-        ref={ref}
-        name={name}
-        disabled={disabled}
-        value={value}
-        required={required}
-        onChange={handleChange}
-      />
-    </label>
+    <>
+      <Typography>{props.name}</Typography>
+
+      <Typography>
+        <pre>{JSON.stringify(props, null, 2)}</pre>
+      </Typography>
+    </>
   )
 })
 

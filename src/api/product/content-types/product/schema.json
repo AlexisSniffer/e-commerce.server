@@ -133,15 +133,6 @@
       "relation": "manyToOne",
       "target": "api::brand.brand",
       "inversedBy": "products"
-    },
-    "variants": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "customField",
-      "customField": "plugin::product-variants.variants"
     }
   }
 }
