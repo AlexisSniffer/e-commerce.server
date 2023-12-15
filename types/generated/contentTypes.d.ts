@@ -802,6 +802,57 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   }
 }
 
+export interface ApiDeliveryTimeDeliveryTime extends Schema.CollectionType {
+  collectionName: 'delivery_times'
+  info: {
+    singularName: 'delivery-time'
+    pluralName: 'delivery-times'
+    displayName: 'Delivery Time'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    time: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    products: Attribute.Relation<
+      'api::delivery-time.delivery-time',
+      'oneToMany',
+      'api::product.product'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::delivery-time.delivery-time',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::delivery-time.delivery-time',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::delivery-time.delivery-time',
+      'oneToMany',
+      'api::delivery-time.delivery-time'
+    >
+    locale: Attribute.String
+  }
+}
+
 export interface ApiProductProduct extends Schema.CollectionType {
   collectionName: 'products'
   info: {
@@ -921,6 +972,17 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'manyToOne',
       'api::brand.brand'
     >
+    variants: Attribute.Component<'variants.variants', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    deliveryTime: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'api::delivery-time.delivery-time'
+    >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     publishedAt: Attribute.DateTime
@@ -945,6 +1007,35 @@ export interface ApiProductProduct extends Schema.CollectionType {
   }
 }
 
+export interface ApiVariantTypeVariantType extends Schema.CollectionType {
+  collectionName: 'variant_types'
+  info: {
+    singularName: 'variant-type'
+    pluralName: 'variant-types'
+    displayName: 'Variant Type'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  attributes: {
+    type: Attribute.String & Attribute.Required
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::variant-type.variant-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::variant-type.variant-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -963,7 +1054,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser
       'api::brand.brand': ApiBrandBrand
       'api::category.category': ApiCategoryCategory
+      'api::delivery-time.delivery-time': ApiDeliveryTimeDeliveryTime
       'api::product.product': ApiProductProduct
+      'api::variant-type.variant-type': ApiVariantTypeVariantType
     }
   }
 }

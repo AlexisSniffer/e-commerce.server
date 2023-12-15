@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_variants_variations",
+  "info": {
+    "displayName": "variation",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::variant-type.variant-type"
+    }
+  }
+}

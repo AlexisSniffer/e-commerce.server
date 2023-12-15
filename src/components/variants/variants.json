@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_variants_variants",
+  "info": {
+    "displayName": "variants",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "discount": {
+      "type": "decimal"
+    },
+    "isDiscount": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "until": {
+      "type": "datetime"
+    },
+    "variant": {
+      "type": "component",
+      "repeatable": true,
+      "component": "variants.variation"
+    }
+  }
+}
