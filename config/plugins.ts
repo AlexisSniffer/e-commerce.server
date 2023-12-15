@@ -40,9 +40,18 @@ module.exports = ({ env }) => ({
     },
   },
 
-  // prettier-ignore
   'product-variants': {
     enabled: true,
-    resolve: './src/plugins/product-variants'
+    resolve: './src/plugins/product-variants',
+  },
+
+  'schemas-to-ts': {
+    enabled: false,
+    config: {
+      acceptedNodeEnvs: ['development'],
+      commonInterfacesFolderName: 'schemas-to-ts',
+      verboseLogs: false,
+      alwaysAddEnumSuffix: false,
+    },
   },
 })
