@@ -4,8 +4,10 @@ module.exports = ({ env }) => ({
       provider: 'aws-s3',
       providerOptions: {
         s3Options: {
-          accessKeyId: env('DO_SPACE_ACCESS_KEY'),
-          secretAccessKey: env('DO_SPACE_SECRET_KEY'),
+          credentials: {
+            accessKeyId: env('DO_SPACE_ACCESS_KEY'),
+            secretAccessKey: env('DO_SPACE_SECRET_KEY'),
+          },
           endpoint: env('DO_SPACE_ENDPOINT'),
           params: {
             ACL: env('AWS_ACL', 'public-read'),
