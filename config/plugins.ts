@@ -1,14 +1,15 @@
 module.exports = ({ env }) => ({
-  upload: {
+  /*upload: {
     config: {
       provider: 'aws-s3',
       providerOptions: {
         s3Options: {
+          endpoint: env('DO_SPACE_ENDPOINT'),
+          region: env('DO_SPACE_REGION'),
           credentials: {
             accessKeyId: env('DO_SPACE_ACCESS_KEY'),
             secretAccessKey: env('DO_SPACE_SECRET_KEY'),
           },
-          endpoint: env('DO_SPACE_ENDPOINT'),
           params: {
             ACL: env('AWS_ACL', 'public-read'),
             signedUrlExpires: env('AWS_SIGNED_URL_EXPIRES', 15 * 60),
@@ -22,7 +23,7 @@ module.exports = ({ env }) => ({
         delete: {},
       },
     },
-  },
+  },*/
 
   email: {
     config: {
