@@ -1098,6 +1098,86 @@ export interface ApiProductProduct extends Schema.CollectionType {
   }
 }
 
+export interface ApiServiceService extends Schema.CollectionType {
+  collectionName: 'services'
+  info: {
+    singularName: 'service'
+    pluralName: 'services'
+    displayName: 'Service'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }> &
+      Attribute.SetMinMaxLength<{
+        minLength: 5
+        maxLength: 25
+      }>
+    description: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }> &
+      Attribute.SetMinMaxLength<{
+        minLength: 5
+        maxLength: 40
+      }> &
+      Attribute.DefaultTo<'description'>
+    icon: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    order: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }> &
+      Attribute.SetMinMax<{
+        min: 0
+      }>
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::service.service',
+      'oneToMany',
+      'api::service.service'
+    >
+    locale: Attribute.String
+  }
+}
+
 export interface ApiVariantTypeVariantType extends Schema.CollectionType {
   collectionName: 'variant_types'
   info: {
@@ -1149,6 +1229,7 @@ declare module '@strapi/types' {
       'api::category.category': ApiCategoryCategory
       'api::delivery-time.delivery-time': ApiDeliveryTimeDeliveryTime
       'api::product.product': ApiProductProduct
+      'api::service.service': ApiServiceService
       'api::variant-type.variant-type': ApiVariantTypeVariantType
     }
   }
