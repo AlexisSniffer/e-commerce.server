@@ -749,6 +749,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >
+    orders: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::order.order'
+    >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
@@ -944,6 +949,270 @@ export interface ApiDeliveryTimeDeliveryTime extends Schema.CollectionType {
   }
 }
 
+export interface ApiOrderOrder extends Schema.CollectionType {
+  collectionName: 'orders'
+  info: {
+    singularName: 'order'
+    pluralName: 'orders'
+    displayName: 'Order'
+    description: ''
+  }
+  options: {
+    draftAndPublish: false
+  }
+  attributes: {
+    order: Attribute.UID & Attribute.Required
+    status: Attribute.Enumeration<
+      ['pending', 'accepted', 'invoiced', 'dispatched', 'rejected']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'pending'>
+    date: Attribute.DateTime & Attribute.Required
+    user: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >
+    billing: Attribute.Relation<
+      'api::order.order',
+      'oneToMany',
+      'api::order-billing.order-billing'
+    >
+    products: Attribute.Relation<
+      'api::order.order',
+      'oneToMany',
+      'api::order-product.order-product'
+    >
+    payments: Attribute.Relation<
+      'api::order.order',
+      'oneToMany',
+      'api::order-payment.order-payment'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiOrderBillingOrderBilling extends Schema.CollectionType {
+  collectionName: 'order_billings'
+  info: {
+    singularName: 'order-billing'
+    pluralName: 'order-billings'
+    displayName: 'Order Billing'
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 20
+      }>
+    lastname: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 20
+      }>
+    address: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 200
+      }>
+    phone: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        max: 20
+      }>
+    email: Attribute.Email &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 100
+      }>
+    order: Attribute.Relation<
+      'api::order-billing.order-billing',
+      'manyToOne',
+      'api::order.order'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::order-billing.order-billing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::order-billing.order-billing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiOrderPaymentOrderPayment extends Schema.CollectionType {
+  collectionName: 'order_payments'
+  info: {
+    singularName: 'order-payment'
+    pluralName: 'order-payments'
+    displayName: 'Order Payment'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    voucher: Attribute.Media
+    payment_method: Attribute.Relation<
+      'api::order-payment.order-payment',
+      'manyToOne',
+      'api::payment-method.payment-method'
+    >
+    order: Attribute.Relation<
+      'api::order-payment.order-payment',
+      'manyToOne',
+      'api::order.order'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::order-payment.order-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::order-payment.order-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiOrderProductOrderProduct extends Schema.CollectionType {
+  collectionName: 'order_products'
+  info: {
+    singularName: 'order-product'
+    pluralName: 'order-products'
+    displayName: 'Order Product'
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    price: Attribute.Decimal & Attribute.Required
+    qty: Attribute.Integer & Attribute.Required
+    product: Attribute.Relation<
+      'api::order-product.order-product',
+      'manyToOne',
+      'api::product.product'
+    >
+    order: Attribute.Relation<
+      'api::order-product.order-product',
+      'manyToOne',
+      'api::order.order'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::order-product.order-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::order-product.order-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+  }
+}
+
+export interface ApiPaymentMethodPaymentMethod extends Schema.CollectionType {
+  collectionName: 'payment_methods'
+  info: {
+    singularName: 'payment-method'
+    pluralName: 'payment-methods'
+    displayName: 'Payment Method'
+    description: ''
+  }
+  options: {
+    draftAndPublish: true
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    voucher: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false
+        }
+      }> &
+      Attribute.DefaultTo<false>
+    description: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
+    order_payments: Attribute.Relation<
+      'api::payment-method.payment-method',
+      'oneToMany',
+      'api::order-payment.order-payment'
+    >
+    createdAt: Attribute.DateTime
+    updatedAt: Attribute.DateTime
+    publishedAt: Attribute.DateTime
+    createdBy: Attribute.Relation<
+      'api::payment-method.payment-method',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    updatedBy: Attribute.Relation<
+      'api::payment-method.payment-method',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private
+    localizations: Attribute.Relation<
+      'api::payment-method.payment-method',
+      'oneToMany',
+      'api::payment-method.payment-method'
+    >
+    locale: Attribute.String
+  }
+}
+
 export interface ApiProductProduct extends Schema.CollectionType {
   collectionName: 'products'
   info: {
@@ -1073,6 +1342,11 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'api::product.product',
       'manyToOne',
       'api::delivery-time.delivery-time'
+    >
+    order_products: Attribute.Relation<
+      'api::product.product',
+      'oneToMany',
+      'api::order-product.order-product'
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
@@ -1228,6 +1502,11 @@ declare module '@strapi/types' {
       'api::brand.brand': ApiBrandBrand
       'api::category.category': ApiCategoryCategory
       'api::delivery-time.delivery-time': ApiDeliveryTimeDeliveryTime
+      'api::order.order': ApiOrderOrder
+      'api::order-billing.order-billing': ApiOrderBillingOrderBilling
+      'api::order-payment.order-payment': ApiOrderPaymentOrderPayment
+      'api::order-product.order-product': ApiOrderProductOrderProduct
+      'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod
       'api::product.product': ApiProductProduct
       'api::service.service': ApiServiceService
       'api::variant-type.variant-type': ApiVariantTypeVariantType
