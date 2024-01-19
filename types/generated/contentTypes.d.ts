@@ -1011,9 +1011,10 @@ export interface ApiOrderBillingOrderBilling extends Schema.CollectionType {
     singularName: 'order-billing'
     pluralName: 'order-billings'
     displayName: 'Order Billing'
+    description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
     name: Attribute.String &
@@ -1031,11 +1032,7 @@ export interface ApiOrderBillingOrderBilling extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 200
       }>
-    phone: Attribute.Integer &
-      Attribute.Required &
-      Attribute.SetMinMax<{
-        max: 20
-      }>
+    phone: Attribute.Integer & Attribute.Required
     email: Attribute.Email &
       Attribute.Required &
       Attribute.SetMinMaxLength<{
@@ -1048,7 +1045,6 @@ export interface ApiOrderBillingOrderBilling extends Schema.CollectionType {
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
       'api::order-billing.order-billing',
       'oneToOne',
@@ -1073,7 +1069,7 @@ export interface ApiOrderPaymentOrderPayment extends Schema.CollectionType {
     description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
     voucher: Attribute.Media
@@ -1089,7 +1085,6 @@ export interface ApiOrderPaymentOrderPayment extends Schema.CollectionType {
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
       'api::order-payment.order-payment',
       'oneToOne',
@@ -1111,13 +1106,18 @@ export interface ApiOrderProductOrderProduct extends Schema.CollectionType {
     singularName: 'order-product'
     pluralName: 'order-products'
     displayName: 'Order Product'
+    description: ''
   }
   options: {
-    draftAndPublish: true
+    draftAndPublish: false
   }
   attributes: {
     price: Attribute.Decimal & Attribute.Required
     qty: Attribute.Integer & Attribute.Required
+    variant: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 100
+      }>
     product: Attribute.Relation<
       'api::order-product.order-product',
       'manyToOne',
@@ -1130,7 +1130,6 @@ export interface ApiOrderProductOrderProduct extends Schema.CollectionType {
     >
     createdAt: Attribute.DateTime
     updatedAt: Attribute.DateTime
-    publishedAt: Attribute.DateTime
     createdBy: Attribute.Relation<
       'api::order-product.order-product',
       'oneToOne',

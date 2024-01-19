@@ -4,10 +4,11 @@
   "info": {
     "singularName": "order-billing",
     "pluralName": "order-billings",
-    "displayName": "Order Billing"
+    "displayName": "Order Billing",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -28,8 +29,7 @@
     },
     "phone": {
       "type": "integer",
-      "required": true,
-      "max": 20
+      "required": true
     },
     "email": {
       "type": "email",
