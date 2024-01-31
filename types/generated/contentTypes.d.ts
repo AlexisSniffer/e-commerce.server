@@ -1150,7 +1150,7 @@ export interface ApiPaymentMethodPaymentMethod extends Schema.CollectionType {
   info: {
     singularName: 'payment-method'
     pluralName: 'payment-methods'
-    displayName: 'Payment Method'
+    displayName: 'Payment Methods'
     description: ''
   }
   options: {
