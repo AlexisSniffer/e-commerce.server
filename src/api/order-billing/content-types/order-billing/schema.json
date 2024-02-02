@@ -36,6 +36,10 @@
       "required": true,
       "maxLength": 100
     },
+    "notes": {
+      "type": "text",
+      "maxLength": 100
+    },
     "order": {
       "type": "relation",
       "relation": "manyToOne",
