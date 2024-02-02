@@ -4,16 +4,26 @@
   "info": {
     "singularName": "variant-type",
     "pluralName": "variant-types",
-    "displayName": "Variant Type"
+    "displayName": "Variant Type",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "type": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
