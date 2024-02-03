@@ -17,7 +17,6 @@ export default factories.createCoreService(
           status: 'pending',
           date: new Date(Date.now()).toISOString(),
         },
-        populate: ['order.billing'],
       })
 
       // billing
@@ -53,6 +52,16 @@ export default factories.createCoreService(
             }
           )
         }
+      }
+
+      // payment
+      if (data._payment) {
+        await strapi.entityService.create('api::order-payment.order-payment', {
+          data: {
+            order: order.id,
+            ...data._payment,
+          },
+        })
       }
 
       return order
